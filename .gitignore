@@ -1,0 +1,16 @@
+.idea
+*.pyc
+data.cfg
+*.mp3
+*.pkl
+*.xls
+*.xml
+*.csv
+*.pkl
+~$d.xlsx
+d.xlsx
+data/
+temp
+request_header
+config.cfg
+keys.json
