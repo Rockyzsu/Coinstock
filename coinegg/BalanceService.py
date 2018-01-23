@@ -6,7 +6,7 @@ import json
 import BaseService
 import Utils
 from urllib import urlencode
-
+import pandas as pd
 class BalanceService(BaseService.BaseService):
 	POST_BALANCE = 'balance'
 	POST_TRADE_LIST = 'trade_list'
@@ -85,18 +85,35 @@ def main():
 	# balance = balanceService.post_balance()
 	# print balance
 	trade_list = balanceService.post_trade_list('zet', 0, 'all')
-
+	df=pd.DataFrame()
 	trade_list=dict(trade_list)
-	for trade in trade_list.get('data'):
-		if trade.get('status')=='closed':	
-			print "datetime: {} ".format(trade.get('datetime')),
-			print "type: {} ".format(trade.get('type')),
-			print "status: {} ".format(trade.get('status')),
-			print "price: {} ".format(trade.get('price')),
-			print "amount_original: {} ".format(trade.get('amount_original'))
+	
+	date=[]
+	ex_type=[]
+	status=[]
+	price=[]
+	amount_original=[]
+	# date=[]
+	# date=[]
+	# date=[]
+	# date=[]
 
+	for trade in trade_list.get('data'):
+
+		# print trade
+		
+		# if trade.get('status')=='closed':	
+		# print "datetime: {} ".format(trade.get('datetime')),
+		# print "type: {} ".format(trade.get('type')),
+		# print "status: {} ".format(trade.get('status')),
+		# print "price: {} ".format(trade.get('price')),
+		# print "amount_original: {} ".format(trade.get('amount_original'))
+		
+		
 	# trade_view = balanceService.post_trade_view('doge', 6860502)
 	# print trade_view	
+
+	print df
 
 if __name__ == '__main__':
 	main()
