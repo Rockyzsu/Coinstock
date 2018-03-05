@@ -79,41 +79,8 @@ class BalanceService(BaseService.BaseService):
 		response = requests.post(url, data = params)
 		return response.json() if response else ''		
 
-def main():
-	logging.basicConfig(level=logging.DEBUG)
-	balanceService = BalanceService()
-	# balance = balanceService.post_balance()
-	# print balance
-	trade_list = balanceService.post_trade_list('zet', 0, 'all')
-	df=pd.DataFrame()
-	trade_list=dict(trade_list)
-	
-	date=[]
-	ex_type=[]
-	status=[]
-	price=[]
-	amount_original=[]
-	# date=[]
-	# date=[]
-	# date=[]
-	# date=[]
 
-	for trade in trade_list.get('data'):
-
-		# print trade
-		
-		# if trade.get('status')=='closed':	
-		# print "datetime: {} ".format(trade.get('datetime')),
-		# print "type: {} ".format(trade.get('type')),
-		# print "status: {} ".format(trade.get('status')),
-		# print "price: {} ".format(trade.get('price')),
-		# print "amount_original: {} ".format(trade.get('amount_original'))
-		
-		
-	# trade_view = balanceService.post_trade_view('doge', 6860502)
-	# print trade_view	
-
-	print df
 
 if __name__ == '__main__':
-	main()
+	# main()
+	pass
