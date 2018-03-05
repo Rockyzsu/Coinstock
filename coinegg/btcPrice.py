@@ -3,7 +3,7 @@ import datetime
 import time,os
 import pandas as pd
 
-from coinegg import Utils
+import Utils
 
 def getBtcPrice():
     btc_p_url = 'https://www.coinegg.com/index/pricebtc'
