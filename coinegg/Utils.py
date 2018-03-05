@@ -10,13 +10,13 @@ from urllib import urlencode
 import json
 from sqlalchemy import create_engine
 import pymongo
-
+import os
 # Nonce Length
 JUBI_NONCE_LENGHT = 12
 user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/37.0.2062.120 Chrome/37.0.2062.120 Safari/537.36'
 headers = {'User-Agent': user_agent}
-
-with open('keys.json') as f:
+key_file=os.path.join(os.path.dirname(__file__),'keys.json')
+with open(key_file) as f:
 	js = json.load(f)
 
 def getMd5Hash(s):
