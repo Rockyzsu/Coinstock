@@ -13,7 +13,7 @@ def getBtcPrice():
     df=pd.DataFrame({'Datetime':[d],'Price':[p]},columns=['Datetime','Price'])
     df=df.set_index('Datetime')
     filename=os.path.join(os.path.dirname(__file__),'btc_price.csv')
-    
+
     if os.path.exists(filename):
         df.to_csv(filename,mode='a',header=False)
     else:

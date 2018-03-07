@@ -75,6 +75,7 @@ def wechat_monitor(content):
 		# print i
 		if i[u'PYQuanPin'] == u'wei':
 			username= i['UserName']
+			print username
 		# print i
 	# itchat.send(content, toUserName=id)
 
