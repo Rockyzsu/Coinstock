@@ -104,9 +104,9 @@ def detect_market():
 	# print max(resullt.values())
 	# lens=len(resullt)
 	# wechat_monitor(red/(1.0*counts)*100)
-	if red/(1.0*counts)*100>=10:
+	if red/(1.0*counts)*100>=1:
 		# print "Hot !!!"
-		wechat_monitor(u'币市在升温')
+		wechat_monitor(u'ICO is hotting, go to focus!')
 		wechat_monitor(red/(1.0*counts)*100)
 
 
