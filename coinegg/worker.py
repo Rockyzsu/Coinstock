@@ -2,7 +2,7 @@
 import BalanceService
 import pandas as pd
 import Utils,re
-import itchat
+import itchat,time
 from itchat.content import *
 DB_NAME='db_coin'
 
@@ -66,20 +66,20 @@ def analysis():
 # @itchat.msg_register([TEXT])
 def wechat_monitor(content):
 	user=Utils.js.get('wechat_user')
-	print user
+	# print user
 	account = itchat.get_friends(u'wei')
-	print 'acount {}'.format(account)
-	print type(account)
+	# print 'acount {}'.format(account)
+	# print type(account)
 	for i in account:
 		# print type(i)
 		# print i
 		if i[u'PYQuanPin'] == u'wei':
 			username= i['UserName']
-			print username
+			# print username
 		# print i
 	# itchat.send(content, toUserName=id)
 
-	print 'done'
+	# print 'done'
 	itchat.send((str(content)), toUserName=username)
 
 
@@ -101,22 +101,23 @@ def detect_market():
 		counts+=1
 		resullt[coin]=detail[8]
 
-	print max(resullt.values())
+	# print max(resullt.values())
 	# lens=len(resullt)
-	wechat_monitor(red/(1.0*counts)*100)
+	# wechat_monitor(red/(1.0*counts)*100)
 	if red/(1.0*counts)*100>=10:
-		print "Hot !!!"
-
-
-
+		# print "Hot !!!"
+		wechat_monitor(u'币市在升温')
+		wechat_monitor(red/(1.0*counts)*100)
 
 
 def main():
-
-	# store_data()
-	# analysis()
-	detect_market()
-	# itchat.auto_login()
+	MINUTES=60
+	while 1:
+		# store_data()
+		# analysis()
+		detect_market()
+		time.sleep(30*MINUTES)
+		# itchat.auto_login()
 
 if __name__=='__main__':
 	itchat.auto_login(hotReload=True)
