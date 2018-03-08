@@ -86,7 +86,7 @@ def wechat_monitor(content):
 '''
 监测市场的行情
 '''
-def detect_market():
+def detect_market(focus_list=[]):
 	ret_coin_info = Utils.coinegg_coins()
 	if not ret_coin_info:
 		print 'fail'
@@ -96,26 +96,34 @@ def detect_market():
 	counts=0
 	for coin,detail in ret_coin_info.items():
 		# print coin,'\t',detail[8]
-		if detail[8]>10:
+		if detail[8]>0:
 			red+=1
 		counts+=1
 		resullt[coin]=detail[8]
 
+		if detail[8]>20:
+			wechat_monitor(u'coin {} is rasing to {}, go to focus!'.format(coin,detail[8]))
 	# print max(resullt.values())
 	# lens=len(resullt)
 	# wechat_monitor(red/(1.0*counts)*100)
-	if red/(1.0*counts)*100>=1:
+	if red/(1.0*counts)*100>=30:
 		# print "Hot !!!"
-		wechat_monitor(u'ICO is hotting, go to focus!')
-		wechat_monitor(red/(1.0*counts)*100)
+		wechat_monitor(u'ICO is hotting, more than {} coin percentage is red go to focus!'.format(red/(1.0*counts)*100))
+
+	if  focus_list:
+		for coin in focus_list:
+			if resullt[coin] >10:
+				wechat_monitor(u'Coin {} is rasing as {}'.format(coin,resullt[coin]))
 
 
 def main():
 	MINUTES=60
+	coin_list=['zet','ifc','mryc']
 	while 1:
 		# store_data()
 		# analysis()
-		detect_market()
+
+		detect_market(coin_list)
 		time.sleep(30*MINUTES)
 		# itchat.auto_login()
 
