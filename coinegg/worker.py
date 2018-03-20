@@ -5,6 +5,8 @@ import Utils,re
 import itchat,time
 from itchat.content import *
 DB_NAME='db_coin'
+loggers=Utils.logger('coinegg.log')
+
 
 def store_data():
 	coin_name='zet'
@@ -88,9 +90,11 @@ def wechat_monitor(content):
 '''
 def detect_market(focus_list=[]):
 	ret_coin_info = Utils.coinegg_coins()
+	# print 'dfafffa'
 	if not ret_coin_info:
-		print 'fail'
+		loggers.info(u'Failed to get coinegg web content, retry')
 		return None
+	# print ret_coin_info
 	resullt=dict()
 	red=0
 	counts=0
@@ -100,30 +104,38 @@ def detect_market(focus_list=[]):
 			red+=1
 		counts+=1
 		resullt[coin]=detail[8]
-
+		# print coin,detail[8]
 		if detail[8]>20:
 			wechat_monitor(u'coin {} is rasing to {}, go to focus!'.format(coin,detail[8]))
+			loggers.info(u'coin {} is rasing to {}, go to focus!'.format(coin,detail[8]))
+
 	# print max(resullt.values())
 	# lens=len(resullt)
 	# wechat_monitor(red/(1.0*counts)*100)
 	if red/(1.0*counts)*100>=30:
 		# print "Hot !!!"
+		loggers.info(u'ICO is hotting, more than {} coin percentage is red go to focus!'.format(red/(1.0*counts)*100))
 		wechat_monitor(u'ICO is hotting, more than {} coin percentage is red go to focus!'.format(red/(1.0*counts)*100))
 
 	if  focus_list:
 		for coin in focus_list:
 			if resullt[coin] >10:
 				wechat_monitor(u'Coin {} is rasing as {}'.format(coin,resullt[coin]))
+				loggers.info(u'Coin {} is rasing as {}'.format(coin,resullt[coin]))
 
 
 def main():
 	MINUTES=60
 	coin_list=['zet','ifc','mryc']
+	# loggers.info('asdfb')
+	# print "fdafdafa"
 	while 1:
-		# store_data()
-		# analysis()
+	# 	# store_data()
+	# 	# analysis()
 
 		detect_market(coin_list)
+		# print 'dafafdaf'
+		loggers.info('Go to next 30mins')
 		time.sleep(30*MINUTES)
 		# itchat.auto_login()
 
