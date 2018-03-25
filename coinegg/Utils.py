@@ -10,14 +10,20 @@ from urllib import urlencode
 import json
 from sqlalchemy import create_engine
 import pymongo
+<<<<<<< HEAD
 import os,logging
+=======
+import os
+
+>>>>>>> origin/master
 # Nonce Length
 JUBI_NONCE_LENGHT = 12
-user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/37.0.2062.120 Chrome/37.0.2062.120 Safari/537.36'
+user_agent = 'user-agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36'
 headers = {'User-Agent': user_agent}
-key_file=os.path.join(os.path.dirname(__file__),'keys.json')
+key_file = os.path.join(os.path.dirname(__file__), 'keys.json')
 with open(key_file) as f:
 	js = json.load(f)
+
 
 def getMd5Hash(s):
 	m = hashlib.md5()
@@ -63,19 +69,17 @@ def mongo(db_name):
 	return client[db_name]
 
 
-def getWebContent(url,retry=3):
-	# url=url.format(kind)
-	while retry >0:
+def getWebContent(url, retry=5):
+	if retry > 0:
 		try:
 			r = requests.get(url, headers=headers)
-
 			if r.status_code == 200:
 				return r
-		except Exception,e:
-			print e
-			getWebContent(url,retry-1)
-	return None
-
+		except Exception, e:
+			print 'retry {}'.format(retry)
+			getWebContent(url, retry - 1)
+	else:
+		return None
 
 
 def coinegg_coins():
@@ -86,7 +90,9 @@ def coinegg_coins():
 		print 'failed to get web content'
 		return None
 	return eval(text)
-	# return map(lambda x: x.upper(), eval(text).keys())
+
+
+# return map(lambda x: x.upper(), eval(text).keys())
 
 
 def getCoinList():
@@ -124,4 +130,7 @@ def logger(filename):
 if __name__ == '__main__':
 	# get_engine('db_coint')
 	# pass
-	coinegg_coins()
+	# coinegg_coins()
+
+	btc_p_url = 'https://www.coinegg.com/index/pricebtc'
+	print getWebContent(btc_p_url, 3)
