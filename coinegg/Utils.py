@@ -10,8 +10,12 @@ from urllib import urlencode
 import json
 from sqlalchemy import create_engine
 import pymongo
+<<<<<<< HEAD
+import os,logging
+=======
 import os
 
+>>>>>>> origin/master
 # Nonce Length
 JUBI_NONCE_LENGHT = 12
 user_agent = 'user-agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36'
@@ -81,7 +85,7 @@ def getWebContent(url, retry=5):
 def coinegg_coins():
 	url = 'https://www.coinegg.com/coin/btc/allcoin?t={}'.format(random.random())
 	text = getWebContent(url).text
-
+	# print 'ddfa'
 	if not text:
 		print 'failed to get web content'
 		return None
@@ -110,6 +114,18 @@ def getCoinList():
 	df['datetime'] = datetime.datetime.now()
 	return df
 
+def logger(filename):
+	file=os.path.join(os.path.dirname(__file__),filename)
+	mylogger =logging.getLogger('mylogger')
+	mylogger.setLevel(logging.DEBUG)
+
+	f_handler = logging.FileHandler(file)
+	f_handler.setLevel(logging.DEBUG)
+	formatter = logging.Formatter('[%(asctime)s][%(filename)s][%(levelname)s]::: %(message)s')
+
+	f_handler.setFormatter(formatter)	
+	mylogger.addHandler(f_handler)
+	return mylogger
 
 if __name__ == '__main__':
 	# get_engine('db_coint')
