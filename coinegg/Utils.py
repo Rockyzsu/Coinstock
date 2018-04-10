@@ -10,12 +10,7 @@ from urllib import urlencode
 import json
 from sqlalchemy import create_engine
 import pymongo
-<<<<<<< HEAD
 import os,logging
-=======
-import os
-
->>>>>>> origin/master
 # Nonce Length
 JUBI_NONCE_LENGHT = 12
 user_agent = 'user-agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36'
